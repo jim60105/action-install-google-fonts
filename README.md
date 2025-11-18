@@ -12,13 +12,14 @@
 
 ## 需求
 
-* Ubuntu runner（已測試完成）
+- Ubuntu runner
 
 ## 使用方式
 
 ### 基本範例
 
-**範例 1: 安裝單一字型**
+#### 範例 1: 安裝單一字型
+
 ```yaml
 steps:
   - uses: jim60105/action-install-google-fonts@v2
@@ -26,7 +27,8 @@ steps:
       fonts: 'Roboto'
 ```
 
-**範例 2: 安裝多個字型（逗號分隔）**
+#### 範例 2: 安裝多個字型（逗號分隔）
+
 ```yaml
 steps:
   - uses: jim60105/action-install-google-fonts@v2
@@ -34,7 +36,8 @@ steps:
       fonts: 'Roboto,Noto Sans TC,Noto Color Emoji'
 ```
 
-**範例 3: 安裝多個字型（多行格式）**
+#### 範例 3: 安裝多個字型（多行格式）
+
 ```yaml
 steps:
   - uses: jim60105/action-install-google-fonts@v2
@@ -46,7 +49,8 @@ steps:
         Noto Color Emoji
 ```
 
-**範例 4: 指定字重**
+#### 範例 4: 指定字重
+
 ```yaml
 steps:
   - uses: jim60105/action-install-google-fonts@v2
@@ -55,7 +59,8 @@ steps:
       weights: '300,400,500,700,900'
 ```
 
-**範例 5: 完整設定**
+#### 範例 5: 完整設定
+
 ```yaml
 steps:
   - uses: jim60105/action-install-google-fonts@v2
@@ -96,43 +101,28 @@ steps:
 ## 常用 Google Fonts
 
 ### 中文字型
+
 - `Noto Sans TC` - 思源黑體繁體中文
 - `Noto Serif TC` - 思源宋體繁體中文
 - `Noto Sans SC` - 思源黑體簡體中文
 - `Noto Sans HK` - 思源黑體香港
 
 ### 英文字型
+
 - `Roboto` - Google 的標準字型
 - `Open Sans` - 友善的無襯線字型
 - `Lato` - 優雅的無襯線字型
 - `Montserrat` - 現代幾何字型
 
 ### 特殊字型
+
 - `Noto Color Emoji` - 彩色 Emoji
 - `Noto Emoji` - 單色 Emoji
 
 完整字型列表請參考 [Google Fonts](https://fonts.google.com/)
 
-## 從 v1.x 遷移
-
-如果您正在使用舊版的 CNS11643 字型安裝 action，請參考以下遷移指南：
-
-**Before (v1.x):**
-```yaml
-- uses: jim60105/install-CNS11643-fonts-action@v1
-  with:
-    kai: 'true'
-    sung: 'true'
-```
-
-**After (v2.x):**
-```yaml
-- uses: jim60105/action-install-google-fonts@v2
-  with:
-    fonts: 'Noto Sans TC,Noto Serif TC'
-```
-
 主要變更：
+
 - ❌ 移除 `kai` 和 `sung` 參數
 - ✅ 新增 `fonts` 參數（必填）- 使用者自行指定要安裝的字型
 - ✅ 新增 `weights` 參數（選填）- 可指定字重
