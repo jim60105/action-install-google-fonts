@@ -146,14 +146,6 @@ steps:
 
 ## 授權
 
-Copyright © 2024 jim60105
+Copyright © 2022 hms5232, jim60105
 
 本專案使用 [Apache 2.0 開源許可證](LICENSE)。
-
-Google Fonts 字型的授權依各字型而定，大多數使用 [Open Font License](https://scripts.sil.org/OFL)。請在使用前確認您選擇的字型授權條款。
-
-## 相關連結
-
-- [Google Fonts](https://fonts.google.com/)
-- [Google Fonts API Documentation](https://developers.google.com/fonts/docs/developer_api)
-- [原始專案 (CNS11643 版本)](https://github.com/hms5232/install-CNS11643-fonts-action)
