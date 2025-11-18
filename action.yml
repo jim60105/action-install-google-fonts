@@ -1,20 +1,19 @@
-name: 'Install CNS11643 fonts'
-description: 'Install CNS11643 fonts'
-author: hms5232
+name: 'Install Google Fonts'
+description: 'Install fonts from Google Fonts in GitHub Actions'
+author: jim60105
 branding:
   icon: type
-  color: yellow
+  color: blue
 inputs:
-  kai:
-    description: 'Install 正楷體 or not'
+  fonts:
+    description: 'Font families to install (comma-separated or newline-separated). Example: "Roboto,Noto Sans TC,Noto Color Emoji"'
+    required: true
+  weights:
+    description: 'Font weights to install (comma-separated: 100,300,400,500,700,900)'
     required: false
-    default: 'true'
-  sung:
-    description: 'Install 正宋體 or not'
-    required: false
-    default: 'true'
+    default: '400,700'
   download-flag:
-    description: 'Add flag(s) when use wget'
+    description: 'Flags for wget or curl'
     required: false
     default: '-nv'
 runs:
@@ -22,22 +21,21 @@ runs:
   steps:
     - run: ${{ github.action_path }}/init.sh
       shell: bash
+    
     - run: |
-        echo "::group::download and unzip Kai"
-        ${{ github.action_path }}/download_kai.sh -f "${{ inputs.download-flag }}"
+        echo "::group::Download and install fonts"
+        ${{ github.action_path }}/download_fonts.sh \
+          -f "${{ inputs.download-flag }}" \
+          -w "${{ inputs.weights }}" \
+          "${{ inputs.fonts }}"
         echo "::endgroup::"
       shell: bash
-      if:  ${{ inputs.kai == 'true' }}
+    
     - run: |
-        echo "::group::download and unzip Sung"
-        ${{ github.action_path }}/download_sung.sh -f "${{ inputs.download-flag }}"
-        echo "::endgroup::"
-      shell: bash
-      if:  ${{ inputs.sung == 'true' }}
-    - run: |
-        echo "::group::update fonts"
+        echo "::group::Update font cache"
         ${{ github.action_path }}/install.sh
         echo "::endgroup::"
       shell: bash
+    
     - run: ${{ github.action_path }}/clear.sh
       shell: bash

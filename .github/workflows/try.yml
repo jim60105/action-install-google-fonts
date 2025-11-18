@@ -1,37 +1,142 @@
-# This is a basic workflow to help you get started with Actions
+# Test workflow for Google Fonts installation
 
-name: Try action
+name: Test Google Fonts
 
 # Controls when the workflow will run
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
-      kai:
-        description: 'Install 正楷體 or not'
+      fonts:
+        description: 'Fonts to install (comma-separated or one per line)'
         required: false
-        default: 'true'
-      sung:
-        description: 'Install 正宋體 or not'
+        default: |
+          Roboto
+          Noto Sans TC
+          Noto Color Emoji
+      weights:
+        description: 'Weights to install (comma-separated)'
         required: false
-        default: 'true'
+        default: '400,700'
 
 jobs:
-  run:
+  test-comma-separated:
+    name: Test with comma-separated fonts
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v5
-      - name: Install CNS11643 fonts
+      
+      - name: Install Google Fonts (comma-separated)
         uses: ./
         with:
-          kai: ${{ inputs.kai }}
-          sung: ${{ inputs.sung }}
-      - name: Check Kai
-        run: fc-list | grep TW-Kai-
+          fonts: 'Roboto,Noto Sans TC,Lato'
+          weights: '400,700'
+      
+      - name: Verify installation
+        run: |
+          echo "Installed fonts:"
+          fc-list | sort
+          echo ""
+          echo "Checking for Roboto:"
+          fc-list | grep -i "roboto" || echo "Warning: Roboto not found"
+          echo "Checking for Noto Sans TC:"
+          fc-list | grep -i "noto.*sans.*tc" || echo "Warning: Noto Sans TC not found"
+          echo "Checking for Lato:"
+          fc-list | grep -i "lato" || echo "Warning: Lato not found"
         shell: bash
-        if:  ${{ inputs.kai == 'true' }}
-      - name: Check Sung
-        run: fc-list | grep TW-Sung-
+  
+  test-multiline:
+    name: Test with multiline fonts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      
+      - name: Install Google Fonts (multiline)
+        uses: ./
+        with:
+          fonts: |
+            Roboto
+            Noto Sans TC
+            Noto Serif TC
+          weights: '400'
+      
+      - name: Verify installation
+        run: |
+          echo "Checking installed fonts:"
+          fc-list | grep -i "roboto\|noto" || echo "Warning: Expected fonts not found"
         shell: bash
-        if:  ${{ inputs.sung == 'true' }}
+  
+  test-custom-input:
+    name: Test with user input
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      
+      - name: Install Google Fonts
+        uses: ./
+        with:
+          fonts: ${{ inputs.fonts }}
+          weights: ${{ inputs.weights }}
+      
+      - name: Verify installation
+        run: |
+          echo "All installed fonts:"
+          fc-list
+        shell: bash
+  
+  test-emoji:
+    name: Test Noto Color Emoji
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      
+      - name: Install Emoji Font
+        uses: ./
+        with:
+          fonts: 'Noto Color Emoji'
+          weights: '400'
+      
+      - name: Verify emoji font
+        run: |
+          echo "Checking for emoji font:"
+          fc-list | grep -i "emoji" || echo "Warning: Emoji font not found"
+        shell: bash
+  
+  test-single-font:
+    name: Test single font installation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      
+      - name: Install Single Font
+        uses: ./
+        with:
+          fonts: 'Open Sans'
+          weights: '400'
+      
+      - name: Verify installation
+        run: |
+          echo "Checking for Open Sans:"
+          fc-list | grep -i "open.*sans" || echo "Warning: Open Sans not found"
+        shell: bash
+  
+  test-multiple-weights:
+    name: Test multiple weights
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      
+      - name: Install Font with Multiple Weights
+        uses: ./
+        with:
+          fonts: 'Roboto'
+          weights: '300,400,500,700,900'
+      
+      - name: Verify installation
+        run: |
+          echo "Checking for Roboto with multiple weights:"
+          fc-list | grep -i "roboto"
+          echo ""
+          echo "Font count:"
+          fc-list | grep -i "roboto" | wc -l
+        shell: bash
