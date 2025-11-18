@@ -12,10 +12,6 @@ inputs:
     description: 'Font weights to install (comma-separated: 100,300,400,500,700,900)'
     required: false
     default: '400,700'
-  download-flag:
-    description: 'Flags for wget or curl'
-    required: false
-    default: '-nv'
 runs:
   using: "composite"
   steps:
@@ -29,7 +25,6 @@ runs:
     - run: |
         echo "::group::Download and install fonts"
         ${{ github.action_path }}/download_fonts.sh \
-          -f "${{ inputs.download-flag }}" \
           -w "${{ inputs.weights }}" \
           "${{ inputs.fonts }}"
         echo "::endgroup::"
