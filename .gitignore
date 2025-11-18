@@ -1,0 +1,25 @@
+# Temporary font download directory
+fonts_temp/
+
+# Downloaded font files
+*.ttf
+*.otf
+*.woff
+*.woff2
+
+# CSS files from Google Fonts API
+*.css
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Test directories
+test_*/
