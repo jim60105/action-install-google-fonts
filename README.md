@@ -1,24 +1,23 @@
 # action-install-google-fonts
 
-在 GitHub Actions 執行時安裝 Google Fonts 字型
+Install Google Fonts in GitHub Actions
 
-## 特色
+## Features
 
-- 🎨 **完全自訂**: 自由選擇任何 Google Fonts 上的字型
-- 🌏 **支援各種語言**: 中文、日文、韓文、拉丁文等
-- 🎯 **彈性字重**: 可指定需要的字重（100-900）
-- ⚡ **快速安裝**: 使用 wget 快速下載
-- 🔒 **安全驗證**: 提供 SHA256 checksum
+- 🎨 **Full Customization**: Choose any font from [Google Fonts](https://fonts.google.com/)
+- 🎯 **Flexible Font Weights**: Specify required weights (100-900)
+- ⚡ **Fast Installation**: Quick download using wget
+- 🔒 **Security Verification**: SHA256 checksum provided
 
-## 需求
+## Requirements
 
 - Ubuntu runner
 
-## 使用方式
+## Usage
 
-### 基本範例
+### Basic Examples
 
-#### 範例 1: 安裝單一字型
+#### Example 1: Install a Single Font
 
 ```yaml
 steps:
@@ -27,7 +26,7 @@ steps:
       fonts: 'Roboto'
 ```
 
-#### 範例 2: 安裝多個字型（逗號分隔）
+#### Example 2: Install Multiple Fonts (Comma-Separated)
 
 ```yaml
 steps:
@@ -36,7 +35,7 @@ steps:
       fonts: 'Roboto,Noto Sans TC,Noto Color Emoji'
 ```
 
-#### 範例 3: 安裝多個字型（多行格式）
+#### Example 3: Install Multiple Fonts (Multi-Line Format)
 
 ```yaml
 steps:
@@ -49,7 +48,7 @@ steps:
         Noto Color Emoji
 ```
 
-#### 範例 4: 指定字重
+#### Example 4: Specify Font Weights
 
 ```yaml
 steps:
@@ -59,7 +58,7 @@ steps:
       weights: '300,400,500,700,900'
 ```
 
-#### 範例 5: 完整設定
+#### Example 5: Full Configuration
 
 ```yaml
 steps:
@@ -73,15 +72,15 @@ steps:
       download-flag: '-v'  # verbose output
 ```
 
-### 參數說明
+### Parameters
 
-| 參數 | 必填 | 預設值 | 說明 |
-|------|------|--------|------|
-| `fonts` | ✅ 是 | - | 要安裝的字型列表（逗號或換行分隔）|
-| `weights` | ❌ 否 | `'400,700'` | 要安裝的字重（100-900）|
-| `download-flag` | ❌ 否 | `'-nv'` | wget 的下載參數 |
+| Parameter | Required | Default | Description |
+|-----------|----------|---------|-------------|
+| `fonts` | ✅ Yes | - | List of fonts to install (comma or newline separated) |
+| `weights` | ❌ No | `'400,700'` | Font weights to install (100-900) |
+| `download-flag` | ❌ No | `'-nv'` | wget download flags |
 
-### 進階設定建議
+### Advanced Configuration Recommendations
 
 ```yaml
 steps:
@@ -91,51 +90,38 @@ steps:
         Roboto
         Noto Sans TC
       weights: '400,700'
-    timeout-minutes: 10  # 建議設定執行時限，避免因網路問題卡住
+    timeout-minutes: 10  # Recommended to set execution timeout to avoid getting stuck due to network issues
   
-  # 下一個步驟
+  # Next step
   - name: your next step
-    if: always()  # 避免字型安裝失敗導致中斷流程
+    if: always()  # Prevent font installation failure from interrupting the workflow
 ```
 
-## 常用 Google Fonts
+## Popular Google Fonts
 
-### 中文字型
+### Chinese Fonts
 
-- `Noto Sans TC` - 思源黑體繁體中文
-- `Noto Serif TC` - 思源宋體繁體中文
-- `Noto Sans SC` - 思源黑體簡體中文
-- `Noto Sans HK` - 思源黑體香港
+- `Noto Sans TC` - Noto Sans Traditional Chinese
+- `Noto Serif TC` - Noto Serif Traditional Chinese
+- `Noto Sans SC` - Noto Sans Simplified Chinese
+- `Noto Sans HK` - Noto Sans Hong Kong
 
-### 英文字型
+### English Fonts
 
-- `Roboto` - Google 的標準字型
-- `Open Sans` - 友善的無襯線字型
-- `Lato` - 優雅的無襯線字型
-- `Montserrat` - 現代幾何字型
+- `Roboto` - Google's standard font
+- `Open Sans` - Friendly sans-serif font
+- `Lato` - Elegant sans-serif font
+- `Montserrat` - Modern geometric font
 
-### 特殊字型
+### Special Fonts
 
-- `Noto Color Emoji` - 彩色 Emoji
-- `Noto Emoji` - 單色 Emoji
+- `Noto Color Emoji` - Color Emoji
+- `Noto Emoji` - Monochrome Emoji
 
-完整字型列表請參考 [Google Fonts](https://fonts.google.com/)
+For a complete list of fonts, please refer to [Google Fonts](https://fonts.google.com/)
 
-主要變更：
-
-- ❌ 移除 `kai` 和 `sung` 參數
-- ✅ 新增 `fonts` 參數（必填）- 使用者自行指定要安裝的字型
-- ✅ 新增 `weights` 參數（選填）- 可指定字重
-- ✅ 支援任何 Google Fonts 上的字型
-
-## Release 策略
-
-本專案依照語意化版本號（SemVer）更新版本號。
-
-主版本號會切出分支管理，例如：`v2`；次版及修補版本號則使用 tag 功能，例如：`v2.0.0`。
-
-## 授權
+## License
 
 Copyright © 2022 hms5232, jim60105
 
-本專案使用 [Apache 2.0 開源許可證](LICENSE)。
+This project is licensed under the [Apache 2.0 License](LICENSE).
